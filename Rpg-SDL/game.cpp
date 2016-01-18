@@ -7,6 +7,7 @@
 // Constructor
 Game::Game() : m_window(0), m_renderer(0), m_running(true), m_background(0)
 {
+    m_widgets = new std::vector<Widget*>();
 }
 
 /**
@@ -95,35 +96,43 @@ int Game::onRun()
  */
 bool Game::onLoad()
 {
+    // Loading resources
     m_background = load_music("music/background.mp3");
-
-    //SDL_Texture *background = loadImage(m_renderer, "graphics/background.png");
-    SDL_Texture *tileset = load_image(m_renderer, "graphics/map.png");
-    SDL_Texture *ui = load_image(m_renderer, "graphics/ui/alpha.png");
-    SDL_Texture *player = load_image(m_renderer, "graphics/character/witch.png");
+    
+    m_tileset = load_image(m_renderer, "graphics/map.png");
+    m_dialog = load_image(m_renderer, "graphics/ui/alpha.png");
+    m_player_spritesheet = load_image(m_renderer, "graphics/character/witch.png");
+    
+    m_font_pixel = load_font("fonts/kenpixel_mini.ttf", 18);
 
     // Create a new Map
-    m_map = new Map(0, tileset, 3, 50, 50, 32);
+    m_map = new Map(0, m_tileset, 3, 50, 50, 32);
 
     m_map->init();
     m_map->load("map/map.dat");
 
     // Player
-    m_player = new Character(player);
-
-    // Load font
-    TTF_Font *font = load_font("fonts/kenpixel_mini.ttf", 18);
-    // Ui dialog
-    m_ui = new Ui(ui, font);
+    m_player = new Character(m_player_spritesheet);
 
     return true;
 }
 
 /**
- * ? oO
+ * Handle all looping actions that not concerne drawing or event,
+ * such as Widgets
  */
 void Game::onLoop()
 {
+    // For each widgets, if any, check if they need to be removed
+    std::vector<Widget*>::iterator it = m_widgets->begin();
+    while (it != m_widgets->end()) {
+        if ((*it)->destroyed()) {
+            std::cout << "A widget is going to be destroyed !\n";
+            remove_widget(*it);
+            return;
+        }
+        it++;
+    }
 }
 
 /**
@@ -134,9 +143,6 @@ void Game::onDraw()
 {
     SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
     SDL_RenderClear(m_renderer);
-
-    // Draw map background
-    //drawImage(m_map->getBackground(), 0, 0);
 
     // Display map tiles
     for (int layer = 0; layer < m_map->layers(); layer++) {
@@ -156,16 +162,13 @@ void Game::onDraw()
             }
         }
     }
-
-    // Border on each 4 sides offset
-    SDL_Rect border_offset = {10, 10, 10, 10};
-    SDL_Rect frame = (SDL_Rect){0, 300, 640, 180};
-    m_ui->dialog(m_renderer, &border_offset, &frame);
-
-    // Write text
-    SDL_Color color = {255, 255, 255};
-    frame = (SDL_Rect){15, 310, 0, 0};
-    m_ui->add_text(m_renderer, "Coucou", color, &frame);
+    
+    // For each widgets, if any, draw them on screen
+    std::vector<Widget*>::iterator it = m_widgets->begin();
+    while (it != m_widgets->end() && !(*it)->destroyed()) {
+        (*it)->draw();
+        it++;
+    }
 
     SDL_RenderPresent(m_renderer);
 }
@@ -179,14 +182,38 @@ void Game::onEvent()
     if (m_event.type == SDL_QUIT) {
         m_running = false;
     }
-
+    
+    // Loop on each widget (reverse loop, to catch the last widget added first)
+    // and call onEvent, if an event occured, then break this loop
+    std::vector<Widget*>::iterator it = m_widgets->begin();
+    // On parcour la liste des widget pour leur signaler l'evenement
+    while (it != m_widgets->end()) {
+        // Si la widget intercepte l'event, on arrete de boucler
+        if ((*it)->onEvent(m_event)) {
+            std::cout << "An event has been itercepted !\n";
+            return;
+        }
+        it++;
+    }
+    
+    // Main game event loop
     switch (m_event.type) {
+        case SDL_MOUSEBUTTONUP:
+            std::cout << "Click up on the main !\n";
+            break;
         case SDL_KEYDOWN:
             switch(m_event.key.keysym.sym) {
                 case SDLK_ESCAPE:
                     m_running = false;
                     break;
-
+                    
+                case SDLK_c:
+                    src = {10, 10, 10, 10};
+                    dst = (SDL_Rect){0, 300, 640, 180};
+                    widget = new Widget(m_renderer, m_dialog, m_font_pixel, &src, &dst);
+                    add_widget(widget);
+                    break;
+                    
                 // Character move
                 case SDLK_z:
                     m_player->move(UP);

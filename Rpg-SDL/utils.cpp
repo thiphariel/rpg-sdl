@@ -4,12 +4,26 @@
 
 #include "game.h"
 
+SDL_Renderer *Game::renderer() const
+{
+    return m_renderer;
+}
+
+void Game::add_widget(Widget *widget)
+{
+    m_widgets->push_back(widget);
+}
+void Game::remove_widget(Widget *widget)
+{
+    std::vector<Widget*>::iterator it = std::find(m_widgets->begin(), m_widgets->end(), widget);
+    m_widgets->erase(it);
+    std::cout << "A widget should be erase\n";
+}
+
 void Game::clean()
 {
     delete m_map;
     m_map = NULL;
-    delete m_ui;
-    m_ui = NULL;
 
     // Destroy textures here if needed !
 
@@ -54,7 +68,7 @@ SDL_Texture *Game::load_image(SDL_Renderer *renderer, std::string name)
         SDL_FreeSurface(image);
         image = NULL;
     } else {
-        std::cout << "L'image n'a pas pu tre charge! SDL_Error : " << SDL_GetError();
+        std::cout << "Image could not be loaded! SDL_Error : " << SDL_GetError();
     }
 
     return texture;

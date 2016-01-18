@@ -4,12 +4,16 @@
 
 #include "ui.h"
 
-Ui::Ui(SDL_Texture *texture, TTF_Font *font) : m_texture(texture), m_font(font)
+Ui::Ui(SDL_Renderer *renderer, SDL_Texture *texture, TTF_Font *font) : m_renderer(renderer), m_texture(texture), m_font(font)
 {
+    m_position = (SDL_Rect){};
+    m_active = true;
 }
 
-void Ui::dialog(SDL_Renderer *renderer, SDL_Rect *src, SDL_Rect *dst) const
+void Ui::dialog(SDL_Rect *src, SDL_Rect *dst)
 {
+    m_position = *dst;
+    
     // Create a copy of the dst rect so we can modify it
     SDL_Rect frame = *dst;
     // Make sure that the dst isn't too small
@@ -55,17 +59,69 @@ void Ui::dialog(SDL_Renderer *renderer, SDL_Rect *src, SDL_Rect *dst) const
             dst_.w -= dst_.x;
             dst_.h -= dst_.y;
 
-            SDL_RenderCopy(renderer, m_texture, &src_, &dst_);
+            SDL_RenderCopy(m_renderer, m_texture, &src_, &dst_);
         }
     }
 }
 
-void Ui::add_text(SDL_Renderer *renderer, std::string text, SDL_Color color, SDL_Rect *dst) const
+void Ui::add_text(std::string text, SDL_Color color, SDL_Rect *dst) const
 {
     SDL_Surface *surfaceMessage = TTF_RenderText_Solid(m_font, text.c_str(), color);
-    SDL_Texture *msg = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+    SDL_Texture *msg = SDL_CreateTextureFromSurface(m_renderer, surfaceMessage);
 
     dst->w = surfaceMessage->w;
     dst->h = surfaceMessage->h;
-    SDL_RenderCopy(renderer, msg, NULL, dst);
+    SDL_RenderCopy(m_renderer, msg, NULL, dst);
+}
+
+void Ui::destroy()
+{
+    SDL_DestroyTexture(m_texture);
+    m_texture = NULL;
+}
+
+bool Ui::onEvent(SDL_Event &event)
+{
+    if (!m_active) {
+        return false;
+    }
+    
+    switch (event.type) {
+        case SDL_KEYDOWN:
+            switch(event.key.keysym.sym) {
+                case SDLK_a:
+                    std::cout << "A pressed on UI widget :)\n";
+                    return true;
+                    break;
+            }
+        break;
+        case SDL_KEYUP:
+            switch(event.key.keysym.sym) {
+                    // Character move
+                case SDLK_e:
+                    std::cout << "E released on UI widget :)\n";
+                    return true;
+                    break;
+            }
+            break;
+        case SDL_MOUSEBUTTONUP:
+            if (event.motion.x > m_position.x && event.motion.y > m_position.y) {
+                std::cout << "Mouse click up\n";
+                destroy();
+                return true;
+            }
+            
+            break;
+    }
+    
+    return false;
+}
+
+void Ui::active(bool active)
+{
+    m_active = active;
+}
+bool Ui::active() const
+{
+    return m_active;
 }

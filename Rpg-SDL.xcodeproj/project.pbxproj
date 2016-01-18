@@ -17,6 +17,7 @@
 		E910CFF31C4D651900FF7B9E /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E910CFEF1C4D651900FF7B9E /* SDL2_mixer.framework */; };
 		E910CFF41C4D651900FF7B9E /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E910CFF01C4D651900FF7B9E /* SDL2_ttf.framework */; };
 		E910CFF51C4D651900FF7B9E /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E910CFF11C4D651900FF7B9E /* SDL2.framework */; };
+		E910CFF81C4D9DA600FF7B9E /* widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E910CFF61C4D9DA600FF7B9E /* widget.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +54,8 @@
 		E910CFEF1C4D651900FF7B9E /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
 		E910CFF01C4D651900FF7B9E /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
 		E910CFF11C4D651900FF7B9E /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		E910CFF61C4D9DA600FF7B9E /* widget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = widget.cpp; sourceTree = "<group>"; };
+		E910CFF71C4D9DA600FF7B9E /* widget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = widget.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,18 +100,20 @@
 				E910CFEB1C4D650300FF7B9E /* graphics */,
 				E910CFEC1C4D650300FF7B9E /* map */,
 				E910CFED1C4D650300FF7B9E /* music */,
-				E910CFE41C4D64F700FF7B9E /* animation.h */,
-				E910CFE51C4D64F700FF7B9E /* binary.h */,
-				E910CFE61C4D64F700FF7B9E /* character.h */,
-				E910CFE71C4D64F700FF7B9E /* game.h */,
-				E910CFE81C4D64F700FF7B9E /* map.h */,
-				E910CFE91C4D64F700FF7B9E /* ui.h */,
 				E910CFD81C4D64EB00FF7B9E /* character.cpp */,
 				E910CFD91C4D64EB00FF7B9E /* game.cpp */,
 				E910CFDA1C4D64EB00FF7B9E /* main.cpp */,
 				E910CFDB1C4D64EB00FF7B9E /* map.cpp */,
 				E910CFDC1C4D64EB00FF7B9E /* ui.cpp */,
 				E910CFDD1C4D64EB00FF7B9E /* utils.cpp */,
+				E910CFF61C4D9DA600FF7B9E /* widget.cpp */,
+				E910CFE41C4D64F700FF7B9E /* animation.h */,
+				E910CFE51C4D64F700FF7B9E /* binary.h */,
+				E910CFE61C4D64F700FF7B9E /* character.h */,
+				E910CFE71C4D64F700FF7B9E /* game.h */,
+				E910CFE81C4D64F700FF7B9E /* map.h */,
+				E910CFE91C4D64F700FF7B9E /* ui.h */,
+				E910CFF71C4D9DA600FF7B9E /* widget.h */,
 			);
 			path = "Rpg-SDL";
 			sourceTree = "<group>";
@@ -174,6 +179,7 @@
 				E910CFDF1C4D64EB00FF7B9E /* game.cpp in Sources */,
 				E910CFE31C4D64EB00FF7B9E /* utils.cpp in Sources */,
 				E910CFE11C4D64EB00FF7B9E /* map.cpp in Sources */,
+				E910CFF81C4D9DA600FF7B9E /* widget.cpp in Sources */,
 				E910CFE01C4D64EB00FF7B9E /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
