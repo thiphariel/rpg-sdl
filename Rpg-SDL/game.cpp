@@ -72,10 +72,8 @@ int Game::onRun()
     unsigned int fps = SDL_GetTicks() + 16;
     while(m_running) {
         // Event loop
-        while(SDL_PollEvent(&m_event)) {
-            onEvent();
-        }
-
+        onEvent();
+    
         onLoop();
         onDraw();
 
@@ -102,11 +100,12 @@ bool Game::onLoad()
     m_tileset = load_image(m_renderer, "graphics/map.png");
     m_dialog = load_image(m_renderer, "graphics/ui/alpha.png");
     m_player_spritesheet = load_image(m_renderer, "graphics/character/witch.png");
+    m_player_dialog = load_image(m_renderer, "graphics/character/dialog/witch.png");
     
     m_font_pixel = load_font("fonts/kenpixel_mini.ttf", 18);
 
     // Create a new Map
-    m_map = new Map(0, m_tileset, 3, 50, 50, 32);
+    m_map = new Map(m_tileset, 3, 50, 50, 32);
 
     m_map->init();
     m_map->load("map/map.dat");
@@ -133,6 +132,12 @@ void Game::onLoop()
         }
         it++;
     }
+    
+    // Update player position
+    if (m_player->moving()) {
+        m_player->add_frame();
+        m_player->move();
+    }
 }
 
 /**
@@ -153,10 +158,11 @@ void Game::onDraw()
                 int sx = tile % m_map->tiles_for_row();
                 int sy = tile / m_map->tiles_for_row();
 
+                // Draw the current tile
                 draw(m_map->tileset(), sx, sy, i, j);
 
                 // TODO Character drawing on the right layer
-                if (layer == 1) {
+                if (layer == Layers::MID) {
                     draw_character(m_player->sprites(), m_player->frame(), m_player->state(), m_player->x(), m_player->y());
                 }
             }
@@ -166,7 +172,10 @@ void Game::onDraw()
     // For each widgets, if any, draw them on screen
     std::vector<Widget*>::iterator it = m_widgets->begin();
     while (it != m_widgets->end() && !(*it)->destroyed()) {
-        (*it)->draw();
+        if (!(*it)->draw()) {
+            remove_widget((*it));
+            return;
+        }
         it++;
     }
 
@@ -178,56 +187,61 @@ void Game::onDraw()
  */
 void Game::onEvent()
 {
-    // Quit the game
-    if (m_event.type == SDL_QUIT) {
-        m_running = false;
-    }
-    
-    // Loop on each widget (reverse loop, to catch the last widget added first)
-    // and call onEvent, if an event occured, then break this loop
-    std::vector<Widget*>::iterator it = m_widgets->begin();
-    // On parcour la liste des widget pour leur signaler l'evenement
-    while (it != m_widgets->end()) {
-        // Si la widget intercepte l'event, on arrete de boucler
-        if ((*it)->onEvent(m_event)) {
-            std::cout << "An event has been itercepted !\n";
-            return;
+    while (SDL_PollEvent(&m_event)) {
+        // Quit the game
+        if (m_event.type == SDL_QUIT) {
+            m_running = false;
         }
-        it++;
-    }
-    
-    // Main game event loop
-    switch (m_event.type) {
-        case SDL_MOUSEBUTTONUP:
-            std::cout << "Click up on the main !\n";
-            break;
-        case SDL_KEYDOWN:
-            switch(m_event.key.keysym.sym) {
-                case SDLK_ESCAPE:
-                    m_running = false;
-                    break;
-                    
-                case SDLK_c:
-                    src = {10, 10, 10, 10};
-                    dst = (SDL_Rect){0, 300, 640, 180};
-                    widget = new Widget(m_renderer, m_dialog, m_font_pixel, &src, &dst);
-                    add_widget(widget);
-                    break;
-                    
-                // Character move
-                case SDLK_z:
-                    m_player->move(UP);
-                    break;
-                case SDLK_s:
-                    m_player->move(DOWN);
-                    break;
-                case SDLK_q:
-                    m_player->move(LEFT);
-                    break;
-                case SDLK_d:
-                    m_player->move(RIGHT);
-                    break;
+        
+        // Loop on each widget (reverse loop, to catch the last widget added first)
+        // and call onEvent, if an event occured, then break this loop
+        std::vector<Widget*>::iterator it = m_widgets->begin();
+        // On parcour la liste des widget pour leur signaler l'evenement
+        while (it != m_widgets->end()) {
+            // Si la widget intercepte l'event, on arrete de boucler
+            if ((*it)->onEvent(m_event)) {
+                std::cout << "An event has been itercepted !\n";
+                return;
             }
-            break;
+            it++;
+        }
+        
+        // Main game event loop
+        switch (m_event.type) {
+            case SDL_MOUSEBUTTONUP:
+                std::cout << "Click up on the main !\n";
+                break;
+            case SDL_KEYDOWN:
+                switch(m_event.key.keysym.sym) {
+                    case SDLK_ESCAPE:
+                        m_running = false;
+                        break;
+                        
+                    case SDLK_c:
+                        src = {10, 10, 10, 10};
+                        dst = (SDL_Rect){0, 360, 640, 120};
+                        widget = new Dialog(m_renderer, m_dialog, m_font_pixel, &src, &dst, "This text could be intersting, but I decide to create a master piece of boring shit, instead of something you could enjoy reading. Are you ok with that ? Anyway, I don't mind. :)", m_player_dialog);
+                        add_widget(widget);
+                        break;
+                        
+                        // Character move
+                    case SDLK_z:
+                        m_player->state(UP);
+                        break;
+                    case SDLK_s:
+                        m_player->state(DOWN);
+                        break;
+                    case SDLK_q:
+                        m_player->state(LEFT);
+                        break;
+                    case SDLK_d:
+                        m_player->state(RIGHT);
+                        break;
+                }
+                break;
+            case SDL_KEYUP:
+                m_player->stop();
+                break;
+        }
     }
 }

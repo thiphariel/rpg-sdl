@@ -16,8 +16,9 @@
 
 #include "map.h"
 #include "character.h"
-#include "widget.h"
 #include "animation.h"
+#include "widget.h"
+#include "dialog.h"
 
 class Game
 {
@@ -57,16 +58,18 @@ private:
     SDL_Texture *m_tileset;
     SDL_Texture *m_dialog;
     SDL_Texture *m_player_spritesheet;
+    SDL_Texture *m_player_dialog;
     TTF_Font *m_font_pixel;
-    
-    SDL_Rect src, dst;
-    Widget *widget;
 
     // Map related
     Map *m_map;
 
     // Character
     Character *m_player;
+    
+    // Widget
+    SDL_Rect src, dst;
+    Widget *widget;
 
     // Widgets
     std::vector<Widget*> *m_widgets;

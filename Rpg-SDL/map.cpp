@@ -4,19 +4,14 @@
 
 #include "map.h"
 
-Map::Map()
-{
-}
-
-Map::Map(SDL_Texture *background, SDL_Texture *tileset, int layers, int width, int height, int size)
-: m_background(background), m_tileset(tileset), m_layers(layers), m_width(width), m_height(height), m_size(size)
+Map::Map(SDL_Texture *tileset, int layers, int width, int height, int size)
+: m_tileset(tileset), m_layers(layers), m_width(width), m_height(height), m_size(size)
 {
 }
 
 /**
  * Getters
  */
-SDL_Texture *Map::background() const { return m_background; }
 SDL_Texture *Map::tileset() const { return m_tileset; }
 // Retrieve the number of tile for a row in the tileset
 int Map::tiles_for_row() const {
@@ -70,52 +65,6 @@ void Map::load(std::string name)
     }
 
     stream.close();
-
-    /*std::vector<std::vector<int> > tiles;
-    std::vector<int> data;
-    std::string buffer, tmp;
-    std::stringstream iostr;
-
-    // Loop throup map data
-    while (!stream.eof()) {
-        getline(stream, buffer);
-
-        // Do not loop through this iteration if the line is empty
-        if (!buffer.size())  {
-            continue;
-        }
-
-        iostr.clear();
-        iostr.str(buffer);
-
-        data.clear();
-
-        while (true) {
-            getline(iostr, tmp, ' ');
-
-            // Just push tile number data
-            data.push_back(atoi(tmp.c_str()));
-
-            // Have we finished ? :)
-            if (!iostr.good()) {
-                break;
-            }
-        }
-
-        // If this line is not empty, push it
-        if (data.size()) {
-            tiles.push_back(data);
-        }
-    }*/
-
-    // Assign data to the map tiles
-    /*for (int i = 0; i < m_width; i++) {
-        for (int j = 0; j < m_height; j++) {
-            m_tiles[i][j] = tiles[i][j];
-        }
-    }*/
-
-    output();
 }
 
 // Just output Map tiles content
@@ -130,6 +79,6 @@ void Map::output() const
             std::cout << std::endl;
         }
 
-        std::cout << "Fin de la couche n" << layer << "\n" << std::endl;
+        std::cout << "End of the layer n" << layer << "\n" << std::endl;
     }
 }

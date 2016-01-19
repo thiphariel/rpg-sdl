@@ -11,24 +11,32 @@
 		E910CFDF1C4D64EB00FF7B9E /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E910CFD91C4D64EB00FF7B9E /* game.cpp */; };
 		E910CFE01C4D64EB00FF7B9E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E910CFDA1C4D64EB00FF7B9E /* main.cpp */; };
 		E910CFE11C4D64EB00FF7B9E /* map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E910CFDB1C4D64EB00FF7B9E /* map.cpp */; };
-		E910CFE21C4D64EB00FF7B9E /* ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E910CFDC1C4D64EB00FF7B9E /* ui.cpp */; };
 		E910CFE31C4D64EB00FF7B9E /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E910CFDD1C4D64EB00FF7B9E /* utils.cpp */; };
 		E910CFF21C4D651900FF7B9E /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E910CFEE1C4D651900FF7B9E /* SDL2_image.framework */; };
 		E910CFF31C4D651900FF7B9E /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E910CFEF1C4D651900FF7B9E /* SDL2_mixer.framework */; };
 		E910CFF41C4D651900FF7B9E /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E910CFF01C4D651900FF7B9E /* SDL2_ttf.framework */; };
 		E910CFF51C4D651900FF7B9E /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E910CFF11C4D651900FF7B9E /* SDL2.framework */; };
 		E910CFF81C4D9DA600FF7B9E /* widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E910CFF61C4D9DA600FF7B9E /* widget.cpp */; };
+		E99B1A071C4EF1BB00DEFB50 /* graphics in CopyFiles */ = {isa = PBXBuildFile; fileRef = E910CFEB1C4D650300FF7B9E /* graphics */; };
+		E99B1A081C4EF1E500DEFB50 /* fonts in CopyFiles */ = {isa = PBXBuildFile; fileRef = E910CFEA1C4D650300FF7B9E /* fonts */; };
+		E99B1A091C4EF1E500DEFB50 /* map in CopyFiles */ = {isa = PBXBuildFile; fileRef = E910CFEC1C4D650300FF7B9E /* map */; };
+		E99B1A0A1C4EF1E500DEFB50 /* music in CopyFiles */ = {isa = PBXBuildFile; fileRef = E910CFED1C4D650300FF7B9E /* music */; };
+		E9E543331C4EDF97006DF578 /* dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9E543321C4EDF96006DF578 /* dialog.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		E910CFC01C4D64AF00FF7B9E /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				E99B1A081C4EF1E500DEFB50 /* fonts in CopyFiles */,
+				E99B1A091C4EF1E500DEFB50 /* map in CopyFiles */,
+				E99B1A0A1C4EF1E500DEFB50 /* music in CopyFiles */,
+				E99B1A071C4EF1BB00DEFB50 /* graphics in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -38,14 +46,12 @@
 		E910CFD91C4D64EB00FF7B9E /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
 		E910CFDA1C4D64EB00FF7B9E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E910CFDB1C4D64EB00FF7B9E /* map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map.cpp; sourceTree = "<group>"; };
-		E910CFDC1C4D64EB00FF7B9E /* ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ui.cpp; sourceTree = "<group>"; };
 		E910CFDD1C4D64EB00FF7B9E /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
 		E910CFE41C4D64F700FF7B9E /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animation.h; sourceTree = "<group>"; };
 		E910CFE51C4D64F700FF7B9E /* binary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = binary.h; sourceTree = "<group>"; };
 		E910CFE61C4D64F700FF7B9E /* character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = character.h; sourceTree = "<group>"; };
 		E910CFE71C4D64F700FF7B9E /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
 		E910CFE81C4D64F700FF7B9E /* map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map.h; sourceTree = "<group>"; };
-		E910CFE91C4D64F700FF7B9E /* ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
 		E910CFEA1C4D650300FF7B9E /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		E910CFEB1C4D650300FF7B9E /* graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = graphics; sourceTree = "<group>"; };
 		E910CFEC1C4D650300FF7B9E /* map */ = {isa = PBXFileReference; lastKnownFileType = folder; path = map; sourceTree = "<group>"; };
@@ -56,6 +62,8 @@
 		E910CFF11C4D651900FF7B9E /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		E910CFF61C4D9DA600FF7B9E /* widget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = widget.cpp; sourceTree = "<group>"; };
 		E910CFF71C4D9DA600FF7B9E /* widget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = widget.h; sourceTree = "<group>"; };
+		E9E543311C4EDF87006DF578 /* dialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dialog.h; sourceTree = "<group>"; };
+		E9E543321C4EDF96006DF578 /* dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dialog.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,18 +109,18 @@
 				E910CFEC1C4D650300FF7B9E /* map */,
 				E910CFED1C4D650300FF7B9E /* music */,
 				E910CFD81C4D64EB00FF7B9E /* character.cpp */,
+				E9E543321C4EDF96006DF578 /* dialog.cpp */,
 				E910CFD91C4D64EB00FF7B9E /* game.cpp */,
 				E910CFDA1C4D64EB00FF7B9E /* main.cpp */,
 				E910CFDB1C4D64EB00FF7B9E /* map.cpp */,
-				E910CFDC1C4D64EB00FF7B9E /* ui.cpp */,
 				E910CFDD1C4D64EB00FF7B9E /* utils.cpp */,
 				E910CFF61C4D9DA600FF7B9E /* widget.cpp */,
 				E910CFE41C4D64F700FF7B9E /* animation.h */,
 				E910CFE51C4D64F700FF7B9E /* binary.h */,
 				E910CFE61C4D64F700FF7B9E /* character.h */,
+				E9E543311C4EDF87006DF578 /* dialog.h */,
 				E910CFE71C4D64F700FF7B9E /* game.h */,
 				E910CFE81C4D64F700FF7B9E /* map.h */,
-				E910CFE91C4D64F700FF7B9E /* ui.h */,
 				E910CFF71C4D9DA600FF7B9E /* widget.h */,
 			);
 			path = "Rpg-SDL";
@@ -158,6 +166,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = E910CFB91C4D64AF00FF7B9E;
 			productRefGroup = E910CFC31C4D64AF00FF7B9E /* Products */;
@@ -174,9 +183,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E910CFE21C4D64EB00FF7B9E /* ui.cpp in Sources */,
 				E910CFDE1C4D64EB00FF7B9E /* character.cpp in Sources */,
 				E910CFDF1C4D64EB00FF7B9E /* game.cpp in Sources */,
+				E9E543331C4EDF97006DF578 /* dialog.cpp in Sources */,
 				E910CFE31C4D64EB00FF7B9E /* utils.cpp in Sources */,
 				E910CFE11C4D64EB00FF7B9E /* map.cpp in Sources */,
 				E910CFF81C4D9DA600FF7B9E /* widget.cpp in Sources */,
@@ -273,6 +282,7 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -284,6 +294,7 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -307,6 +318,7 @@
 				E910CFCB1C4D64AF00FF7B9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

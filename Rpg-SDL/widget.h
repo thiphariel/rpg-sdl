@@ -23,7 +23,7 @@ public:
     Widget(SDL_Renderer *renderer, SDL_Texture *texture, TTF_Font *font, SDL_Rect *src, SDL_Rect *dst);
     
     bool onEvent(SDL_Event &event);
-    void draw() const;
+    virtual bool draw() const;
     
     bool destroyed() const;
     void destroyed(bool destroyed);

@@ -12,16 +12,20 @@
 #include <SDL2/SDL.h>
 #include "binary.h"
 
+enum Layers {
+    LOW,
+    MID,
+    HIGH
+};
+
 class Map
 {
 public:
-        Map();
-    Map(SDL_Texture *background, SDL_Texture *tileset, int layers, int width, int height, int size);
+    Map(SDL_Texture *tileset, int layers, int width, int height, int size);
     void init();
     void load(std::string name);
     void output() const;
 
-    SDL_Texture *background() const;
     SDL_Texture *tileset() const;
     int tiles_for_row() const;
     int width() const;
@@ -30,7 +34,6 @@ public:
     int layers() const;
     int ***tiles() const;
 private:
-    SDL_Texture *m_background;
     SDL_Texture *m_tileset;
     int m_layers;
     int m_width;

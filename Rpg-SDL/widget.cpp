@@ -57,7 +57,7 @@ bool Widget::onEvent(SDL_Event &event)
     return false;
 }
 
-void Widget::draw() const
+bool Widget::draw() const
 {
     // Create a copy of the dst rect so we can modify it
     SDL_Rect frame = *m_dst;
@@ -85,7 +85,7 @@ void Widget::draw() const
     };
     
     //Loop trough and draw each rect
-    for (int y = 0; y < 3; y++ ) {
+    for (int y = 0; y < 3; y++) {
         for (int x = 0; x < 3; x++) {
             SDL_Rect src = {
                 srcPoints[x].x,
@@ -108,4 +108,6 @@ void Widget::draw() const
             SDL_RenderCopy(m_renderer, m_texture, &src, &dst);
         }
     }
+    
+    return true;
 }
