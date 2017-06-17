@@ -31,7 +31,7 @@ bool Game::onInit()
     m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!m_renderer) {
         std::cerr << "An error occured while trying to create renderer : " << SDL_GetError() << std::endl;
-        return true;
+        return false;
     }
 
     if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
